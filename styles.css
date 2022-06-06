@@ -1,0 +1,22 @@
+form {
+    width: 50%;
+    border: solid;
+    border-color: grey;
+}
+label {
+    color:rgb(25, 13, 152);
+}
+#add-button {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+#delete-button {
+    float: right;
+    margin-bottom: 8px;
+}
+label {
+    height: 20px;
+}
+.navbar-brand {
+    margin-right: 15rem;
+}
