@@ -21,4 +21,7 @@ label {
 .navbar-brand {
     margin-right: 15rem;
 }
-
+form {
+    width: 100%;
+    height: auto;
+}
