@@ -1,5 +1,5 @@
-
-const createTaskHtml = (name, description, assignedTo, dueDate, status) => {
+// create Task Card HTML
+const createTaskHtml = (name, description, assignedTo, dueDate, status, priority) => {
   const taskHtml = `
   <div class="col-sm-6">
   <div class="card">
@@ -16,7 +16,7 @@ const createTaskHtml = (name, description, assignedTo, dueDate, status) => {
         <br />
         Status: ${status}
         <br />
-        Priority: Moderate
+        Priority: ${priority}
       </p>
       <a
         href="#"
@@ -33,9 +33,7 @@ const createTaskHtml = (name, description, assignedTo, dueDate, status) => {
   return taskHtml
 }
 
-
-
-
+// The TaskManager Class
 class TaskManager {
   constructor(currentId = 0) {
     this.currentId = currentId
@@ -57,6 +55,7 @@ class TaskManager {
       tasksHtmlList.push(taskHtml)
     })
     let tasksHtml = tasksHtmlList.join('\n')
+    const taskList = document.getElementById('taskList')
     taskList.innerHTML = tasksHtml
   }
 }
