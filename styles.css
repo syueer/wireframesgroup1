@@ -1,53 +1,55 @@
-
 form {
-    width: 50%;
-    border: solid;
-    border-color: grey;
+  width: 50%;
+  border: solid;
+  border-color: grey;
 }
 label {
-    color:rgb(25, 13, 152);
+  color: rgb(25, 13, 152);
 }
 #add-button {
-    margin-bottom: 30px;
-    margin-top: 30px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 #delete-button {
-    float: right;
-    margin-bottom: 8px;
+  float: right;
+  margin-bottom: 8px;
 }
 label {
-    height: 20px;
+  height: 20px;
 }
 .navbar-brand {
-    margin-right: 15rem;
+  margin-right: 15rem;
 }
 form {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
+}
+.form-group {
+  margin: 1rem;
 }
 #submitErr {
-    display: none;
+  display: none;
 }
 #submitConfirm {
-    display: none;
+  display: none;
 }
 #taskNameErr {
-    display: none;
+  display: none;
 }
 #dateErr {
-    display: none;
-  }
-  #taskDescriptionErr {
-    display: none;
-  }
-  #dateDisplay {
-    display: grid;
-    text-align: center;
-    margin: 5% auto;
+  display: none;
+}
+#taskDescriptionErr {
+  display: none;
+}
+#dateDisplay {
+  display: grid;
+  text-align: center;
+  margin: 5% auto;
 }
 #add-button {
-    display: grid;
-    width: 30%;
-    margin: 2rem auto;
-    padding: 1rem;
+  display: grid;
+  width: 30%;
+  margin: 2rem auto;
+  padding: 1rem;
 }

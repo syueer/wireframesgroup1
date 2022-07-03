@@ -11,7 +11,6 @@ const thisYear = todaysDate.getFullYear();
 document.getElementById('dateDisplay').innerText = `Today is ${day}  ${thisMonth}  ${thisYear}.`;
 
 //Name validation
-
 const taskInput = document.getElementById('taskname');
 //const nameValue = document.getElementById('taskname').value;
 const validateName = () => {
@@ -50,7 +49,7 @@ descriptionInput.addEventListener('blur', validateDescription);
 
 //Date validation
 const taskDate = document.querySelector('#taskdate');
-const dateValidation = () => {
+const validateDate = () => {
   if (taskDate.value === '') {
     taskDate.style.border = '1px solid red'
     return false
@@ -70,7 +69,7 @@ const dateValidation = () => {
 
 }
 taskDate.onblur = () => {
-  dateValidation()
+  validateDate()
 }
 // Submit button validation
 
@@ -82,20 +81,24 @@ error.style.visibility = 'hidden';
 
 const assigneeInput = document.getElementById('assignee');
 const statusInput = document.getElementById('status');
+const priority = document.getElementById('priority');
 
+const resetTask = () => {
+  taskInput.value = ''
+  descriptionInput.value = ''
+  taskDate.value = ''
+}
 
 const submit = () => {
   let btnClose = document.querySelector('.btn-close')
   let isTaskNameValid = validateName()
   let isTaskDescriptionValid = validateDescription()
-  let isTaskDateValid = dateValidation()
+  let isTaskDateValid = validateDate()
   if (isTaskNameValid && isTaskDescriptionValid && isTaskDateValid) {
-    tasks.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value)
-    console.log(tasks)
+    // console.log(priority.value)
+    tasks.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
     tasks.render()
-    taskInput.value = ''
-    descriptionInput.value = ''
-    taskDate.value = ''
+    resetTask()
     btnClose.click()
   } else {
     error.style.visibility = 'visible';

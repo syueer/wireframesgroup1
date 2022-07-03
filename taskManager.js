@@ -40,19 +40,18 @@ class TaskManager {
     this.tasks = []
   }
 
-  addTask(curname, curdescription, curassignedTo, curdueDate, curstatus = 'todo') {
-    let taskObject = { currentId: this.currentId++, name: curname, description: curdescription, assignedTo: curassignedTo, dueDate: curdueDate, status: curstatus }
+  addTask(curname, curdescription, curassignedTo, curdueDate, curstatus = 'todo', curpriorit) {
+    let taskObject = { currentId: this.currentId++, name: curname, description: curdescription, assignedTo: curassignedTo, dueDate: curdueDate, status: curstatus, priority: curpriorit }
     this.tasks.push(taskObject)
   }
 
   render() {
     let tasksHtmlList = []
-    this.tasks.map(task => {
-      let currentTask = task;
-      let date = new Date(currentTask.dueDate)
+    tasksHtmlList = this.tasks.map(task => {
+      let date = new Date(task.dueDate)
       let formattedDate = (date.toLocaleDateString())
-      let taskHtml = createTaskHtml(currentTask.name, currentTask.description, currentTask.assignedTo, formattedDate, currentTask.status)
-      tasksHtmlList.push(taskHtml)
+      let taskHtml = createTaskHtml(task.name, task.description, task.assignedTo, formattedDate, task.status, tasks.priority)
+      return taskHtml
     })
     let tasksHtml = tasksHtmlList.join('\n')
     const taskList = document.getElementById('taskList')
