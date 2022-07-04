@@ -97,7 +97,7 @@ const resetTask = () => {
   taskDate.style.border = '1px solid #ced4da';
   taskNameErr.style.display = 'none';
   taskDescriptionErr.style.display = 'none';
-  dateErr.style.display = 'none';
+  dataErr.style.display = 'none';
   error.style.display = 'none';
 
 }
