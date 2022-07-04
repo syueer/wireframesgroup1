@@ -1,21 +1,33 @@
+// new TaskManager instance
 let newTasks = new TaskManager()
-console.log(newTasks.tasks)
-//display Date
-const todaysDate = new Date();
-const day = todaysDate.getDate();
-// const thisMonth = todaysDate.getMonth()+1;
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const thisMonth = months[todaysDate.getMonth()];
-const thisYear = todaysDate.getFullYear();
 
-document.getElementById('dateDisplay').innerText = `Today is ${day}  ${thisMonth}  ${thisYear}.`;
-
+//Selector
+const dateDisplay = document.getElementById('dateDisplay')
+const taskInput = document.getElementById('taskname');
+const descriptionInput = document.getElementById('taskdescription');
+const taskDate = document.querySelector('#taskdate');
 const resetButton = document.getElementById('reset-button')
+const filterStatus = document.getElementById('filter-status')
+const filterPriority = document.getElementById('filter-priority')
+const btnClose = document.querySelector('.btn-close')
+const taskSubmit = document.getElementById('task-submit');
+const assigneeInput = document.getElementById('assignee');
+const statusInput = document.getElementById('status');
+const priority = document.getElementById('priority');
+const error = document.getElementById('submitErr');
 
+//display Date function
+const displayDate = () => {
+  const todaysDate = new Date();
+  const day = todaysDate.getDate();
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const thisMonth = months[todaysDate.getMonth()];
+  const thisYear = todaysDate.getFullYear();
+  dateDisplay.innerText = `Today is ${day}  ${thisMonth}  ${thisYear}.`;
+}
+displayDate()
 
 //Name validation
-const taskInput = document.getElementById('taskname');
-//const nameValue = document.getElementById('taskname').value;
 const validateName = () => {
   if (taskInput.value.length === 0) {
     taskInput.style.border = '1px solid red';
@@ -32,10 +44,7 @@ const validateName = () => {
 }
 taskInput.addEventListener('blur', validateName);
 
-
-
 //Description validation
-const descriptionInput = document.getElementById('taskdescription');
 const validateDescription = () => {
   if (descriptionInput.value.length === 0) {
     descriptionInput.style.border = '1px solid red';
@@ -53,7 +62,6 @@ const validateDescription = () => {
 descriptionInput.addEventListener('blur', validateDescription);
 
 //Date validation
-const taskDate = document.querySelector('#taskdate');
 const validateDate = () => {
   if (taskDate.value === '') {
     taskDate.style.border = '1px solid red'
@@ -71,58 +79,53 @@ const validateDate = () => {
     taskDate.style.border = '1px solid #ced4da'
     return true
   }
-
 }
 taskDate.onblur = () => {
   validateDate()
 }
-// Submit button validation
 
-const taskSubmit = document.getElementById('task-submit');
-const error = document.getElementById('submitErr');
-
-error.style.display = 'block';
-error.style.visibility = 'hidden';
-
-const assigneeInput = document.getElementById('assignee');
-const statusInput = document.getElementById('status');
-const priority = document.getElementById('priority');
-
+// reset Task form
 const resetTask = () => {
   taskInput.value = ''
   descriptionInput.value = ''
   taskDate.value = ''
 }
-
 resetButton.onclick = () => {
   resetTask()
 }
 
-const filterStatus = document.getElementById('filter-status')
-
+// filter by task status
 filterStatus.onchange = (e) => {
   let filterTasks = newTasks.filterByStatus(e.target.value)
   newTasks.render(filterTasks)
 }
 
-const filterPriority = document.getElementById('filter-priority')
+//filter by task priority
 filterPriority.onchange = (e) => {
   let filterTasks = newTasks.filterByPriority(e.target.value)
   newTasks.render(filterTasks)
 }
 
+// Submit button validation
+
+// error.style.display = 'block';
+// error.style.visibility = 'hidden';
+
+
+
 const submit = () => {
-  let btnClose = document.querySelector('.btn-close')
   let isTaskNameValid = validateName()
   let isTaskDescriptionValid = validateDescription()
   let isTaskDateValid = validateDate()
   if (isTaskNameValid && isTaskDescriptionValid && isTaskDateValid) {
-    // console.log(priority.value)
     newTasks.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
     newTasks.render(newTasks.tasks)
     resetTask()
     btnClose.click()
   } else {
-    error.style.visibility = 'visible';
+    error.style.display = 'block';
   }
+}
+taskSubmit.onclick = () => {
+  submit()
 }

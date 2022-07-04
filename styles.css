@@ -3,9 +3,11 @@ form {
   border: solid;
   border-color: grey;
 }
+
 label {
   color: rgb(25, 13, 152);
 }
+
 #add-button {
   margin-bottom: 30px;
   margin-top: 30px;
@@ -14,39 +16,54 @@ label {
   float: right;
   margin-bottom: 8px;
 }
+
 label {
   height: 20px;
 }
+
 .navbar-brand {
   margin-right: 15rem;
 }
+
 form {
   width: 100%;
   height: auto;
 }
+
 .form-group {
   margin: 1rem;
 }
+
 #submitErr {
   display: none;
 }
+
 #submitConfirm {
   display: none;
 }
+
 #taskNameErr {
   display: none;
 }
+
 #dateErr {
   display: none;
 }
+
 #taskDescriptionErr {
   display: none;
 }
+
+#submitErr {
+  display: none;
+}
+
 #dateDisplay {
   display: grid;
   text-align: center;
   margin: 5% auto;
 }
+
 #add-button {
   display: grid;
   width: 30%;

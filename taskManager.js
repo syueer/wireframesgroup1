@@ -40,7 +40,6 @@ class TaskManager {
     this.tasks = []
   }
 
-
   addTask(curname, curdescription, curassignedTo, curdueDate, curstatus = 'todo', curpriorit) {
     let taskObject = { currentId: this.currentId++, name: curname, description: curdescription, assignedTo: curassignedTo, dueDate: curdueDate, status: curstatus, priority: curpriorit }
     this.tasks.push(taskObject)
@@ -68,9 +67,9 @@ class TaskManager {
     }
   }
 
-  render(a) {
+  render(renderTasks) {
     let tasksHtmlList = []
-    tasksHtmlList = a.map(task => {
+    tasksHtmlList = renderTasks.map(task => {
       let date = new Date(task.dueDate)
       let formattedDate = (date.toLocaleDateString())
       let taskHtml = createTaskHtml(task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
