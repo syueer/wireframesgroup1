@@ -1,5 +1,5 @@
-let tasks = new TaskManager()
-
+let newTasks = new TaskManager()
+console.log(newTasks.tasks)
 //display Date
 const todaysDate = new Date();
 const day = todaysDate.getDate();
@@ -98,6 +98,18 @@ resetButton.onclick = () => {
   resetTask()
 }
 
+const filterStatus = document.getElementById('filter-status')
+
+filterStatus.onchange = (e) => {
+  let filterTasks = newTasks.filterByStatus(e.target.value)
+  newTasks.render(filterTasks)
+}
+
+const filterPriority = document.getElementById('filter-priority')
+filterPriority.onchange = (e) => {
+  let filterTasks = newTasks.filterByPriority(e.target.value)
+  newTasks.render(filterTasks)
+}
 
 const submit = () => {
   let btnClose = document.querySelector('.btn-close')
@@ -106,8 +118,8 @@ const submit = () => {
   let isTaskDateValid = validateDate()
   if (isTaskNameValid && isTaskDescriptionValid && isTaskDateValid) {
     // console.log(priority.value)
-    tasks.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
-    tasks.render()
+    newTasks.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
+    newTasks.render(newTasks.tasks)
     resetTask()
     btnClose.click()
   } else {

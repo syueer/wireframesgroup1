@@ -40,14 +40,37 @@ class TaskManager {
     this.tasks = []
   }
 
+
   addTask(curname, curdescription, curassignedTo, curdueDate, curstatus = 'todo', curpriorit) {
     let taskObject = { currentId: this.currentId++, name: curname, description: curdescription, assignedTo: curassignedTo, dueDate: curdueDate, status: curstatus, priority: curpriorit }
     this.tasks.push(taskObject)
   }
 
-  render() {
+  filterByStatus(status) {
+    if (status === "All") {
+      return this.tasks
+    } else {
+      let filterResult = this.tasks.filter(task => {
+        return task.status === status
+      })
+      return filterResult
+    }
+  }
+
+  filterByPriority(priority) {
+    if (priority === "All") {
+      return this.tasks
+    } else {
+      let filterResult = newTasks.tasks.filter(task => {
+        return task.priority === priority
+      })
+      return filterResult
+    }
+  }
+
+  render(a) {
     let tasksHtmlList = []
-    tasksHtmlList = this.tasks.map(task => {
+    tasksHtmlList = a.map(task => {
       let date = new Date(task.dueDate)
       let formattedDate = (date.toLocaleDateString())
       let taskHtml = createTaskHtml(task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
