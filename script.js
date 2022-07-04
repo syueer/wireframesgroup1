@@ -1,5 +1,7 @@
 // new TaskManager instance
-let newTasks = new TaskManager()
+let taskManager = new TaskManager()
+taskManager.load()
+taskManager.render(taskManager.tasks)
 
 //Selector
 const taskInput = document.getElementById('taskname');
@@ -102,7 +104,7 @@ resetButton.onclick = (e) => {
 
 // filter function
 const filterTask = (filterCondition) => (
-  newTasks.tasks.filter(task =>
+  taskManager.tasks.filter(task =>
     (filterCondition[0] === 'All' ? true : task.status === filterCondition[0]) &&
     (filterCondition[1] === 'All' ? true : task.priority === filterCondition[1])
   ))
@@ -111,13 +113,13 @@ let filterCondition = ['All', 'All']
 filterStatus.onchange = (e) => {
   filterCondition[0] = e.target.value
   let filterResult = filterTask(filterCondition)
-  newTasks.render(filterResult)
+  taskManager.render(filterResult)
 }
 
 filterPriority.onchange = (e) => {
   filterCondition[1] = e.target.value
   let filterResult = filterTask(filterCondition)
-  newTasks.render(filterResult)
+  taskManager.render(filterResult)
 }
 
 // Submit button validation
@@ -129,8 +131,9 @@ const submit = () => {
   let isTaskDescriptionValid = validateDescription()
   let isTaskDateValid = validateDate()
   if (isTaskNameValid && isTaskDescriptionValid && isTaskDateValid) {
-    newTasks.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
-    newTasks.render(newTasks.tasks)
+    taskManager.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
+    taskManager.store()
+    taskManager.render(taskManager.tasks)
     resetTask()
     document.querySelector('.btn-close').click()
   } else {

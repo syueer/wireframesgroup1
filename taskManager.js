@@ -1,5 +1,5 @@
 // create Task Card HTML
-const createTaskHtml = (name, description, assignedTo, dueDate, status, priority) => {
+const createTaskHtml = (name, description, assignee, dueDate, status, priority) => {
   const taskHtml = `
   <div class="col-sm-6">
   <div class="card">
@@ -10,7 +10,7 @@ const createTaskHtml = (name, description, assignedTo, dueDate, status, priority
         <br />
         Description: ${description}
         <br />
-        Assignee: ${assignedTo}
+        Assignee: ${assignee}
         <br />
         Date: ${dueDate}
         <br />
@@ -44,12 +44,27 @@ class TaskManager {
     this.tasks.push(taskObject)
   }
 
+  store() {
+    localStorage.setItem('currentId', JSON.stringify(this.currentId))
+    localStorage.setItem('tasks', JSON.stringify('this.tasks'))
+  }
+
+  load() {
+    if (localStorage.getItem('tasks')) {
+      this.tasks = JSON.parse(localStorage.getItem('tasks'))
+    }
+    if (localStorage.getItem('currentId')) {
+      this.currentId = Number(localStorage.getItem('currentId'))
+    }
+  }
+
   render(renderTasks) {
     let tasksHtmlList = []
     tasksHtmlList = renderTasks.map(task => {
       let date = new Date(task.dueDate)
       let formattedDate = (date.toLocaleDateString())
-      return createTaskHtml(task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
+      let taskHtml = createTaskHtml(task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
+      return taskHtml
     })
     let tasksHtml = tasksHtmlList.join('\n')
     const taskList = document.getElementById('taskList')
