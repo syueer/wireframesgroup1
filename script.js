@@ -4,8 +4,11 @@ let newTasks = new TaskManager()
 //Selector
 const dateDisplay = document.getElementById('dateDisplay')
 const taskInput = document.getElementById('taskname');
+const taskNameErr = document.getElementById('taskNameErr')
 const descriptionInput = document.getElementById('taskdescription');
+const taskDescriptionErr = document.getElementById('taskDescriptionErr')
 const taskDate = document.querySelector('#taskdate');
+const dataErr = document.getElementById('dateErr')
 const resetButton = document.getElementById('reset-button')
 const filterStatus = document.getElementById('filter-status')
 const filterPriority = document.getElementById('filter-priority')
@@ -33,11 +36,11 @@ const validateName = () => {
     taskInput.style.border = '1px solid red';
     return false
   } else if (taskInput.value.length < 8) {
-    document.getElementById('taskNameErr').style.display = 'block';
+    taskNameErr.style.display = 'block';
     taskInput.style.border = '1px solid red';
     return false
   } else {
-    document.getElementById('taskNameErr').style.display = 'none';
+    taskNameErr.style.display = 'none';
     taskInput.style.border = '1px solid #ced4da';
     return true
   }
@@ -50,11 +53,11 @@ const validateDescription = () => {
     descriptionInput.style.border = '1px solid red';
     return false
   } else if (descriptionInput.value.length > 15) {
-    document.getElementById('taskDescriptionErr').style.display = 'block';
+    taskDescriptionErr.style.display = 'block';
     descriptionInput.style.border = '1px solid red';
     return false
   } else {
-    document.getElementById('taskDescriptionErr').style.display = 'none';
+    taskDescriptionErr.style.display = 'none';
     descriptionInput.style.border = '1px solid #CED4DA';
     return true
   }
@@ -71,11 +74,11 @@ const validateDate = () => {
   let currentDate = new Date()
   currentDate.setHours(0, 0, 0, 0);
   if (inputDate < currentDate) {
-    document.getElementById('dateErr').style.display = 'block';
+    dataErr.style.display = 'block';
     taskDate.style.border = '1px solid red'
     return false
   } else {
-    document.getElementById('dateErr').style.display = 'none';
+    dataErr.style.display = 'none';
     taskDate.style.border = '1px solid #ced4da'
     return true
   }
@@ -89,6 +92,14 @@ const resetTask = () => {
   taskInput.value = ''
   descriptionInput.value = ''
   taskDate.value = ''
+  taskInput.style.border = '1px solid #ced4da';
+  descriptionInput.style.border = '1px solid #CED4DA';
+  taskDate.style.border = '1px solid #ced4da';
+  taskNameErr.style.display = 'none';
+  taskDescriptionErr.style.display = 'none';
+  dateErr.style.display = 'none';
+  error.style.display = 'none';
+
 }
 resetButton.onclick = () => {
   resetTask()
@@ -107,12 +118,6 @@ filterPriority.onchange = (e) => {
 }
 
 // Submit button validation
-
-// error.style.display = 'block';
-// error.style.visibility = 'hidden';
-
-
-
 const submit = () => {
   let isTaskNameValid = validateName()
   let isTaskDescriptionValid = validateDescription()

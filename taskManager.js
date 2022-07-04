@@ -28,8 +28,7 @@ const createTaskHtml = (name, description, assignedTo, dueDate, status, priority
       <a href="#" class="btn btn-primary">Delete</a>
     </div>
   </div>
-</div>
-  `
+</div>`
   return taskHtml
 }
 
