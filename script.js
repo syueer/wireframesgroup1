@@ -99,41 +99,25 @@ resetButton.onclick = (e) => {
   resetTask()
 }
 
+
+// filter function
+const filterTask = (filterCondition) => (
+  newTasks.tasks.filter(task =>
+    (filterCondition[0] === 'All' ? true : task.status === filterCondition[0]) &&
+    (filterCondition[1] === 'All' ? true : task.priority === filterCondition[1])
+  ))
+
 let filterCondition = ['All', 'All']
-// filter by task status
 filterStatus.onchange = (e) => {
   filterCondition[0] = e.target.value
   let filterResult = filterTask(filterCondition)
   newTasks.render(filterResult)
 }
 
-// filter by task priority
 filterPriority.onchange = (e) => {
   filterCondition[1] = e.target.value
   let filterResult = filterTask(filterCondition)
   newTasks.render(filterResult)
-}
-
-const filterTask = (filterCondition) => {
-  let filterResult
-  if (filterCondition[0] === 'All' && filterCondition[1] === 'All') {
-    filterResult = newTasks.tasks
-  } else if (filterCondition[0] === 'All') {
-    filterResult = newTasks.tasks.filter(task => {
-      return task.priority === filterCondition[1]
-    })
-  } else if (filterCondition[1] === 'All') {
-    filterResult = newTasks.tasks.filter(task => {
-      return task.status === filterCondition[0]
-    })
-  } else {
-    filterResult = newTasks.tasks.filter(task => {
-      return task.status === filterCondition[0]
-    }).filter(priorityTask => {
-      return priorityTask.priority === filterCondition[1]
-    })
-  }
-  return filterResult
 }
 
 // Submit button validation
