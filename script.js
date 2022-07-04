@@ -10,6 +10,9 @@ const thisYear = todaysDate.getFullYear();
 
 document.getElementById('dateDisplay').innerText = `Today is ${day}  ${thisMonth}  ${thisYear}.`;
 
+const resetButton = document.getElementById('reset-button')
+
+
 //Name validation
 const taskInput = document.getElementById('taskname');
 //const nameValue = document.getElementById('taskname').value;
@@ -28,6 +31,8 @@ const validateName = () => {
   }
 }
 taskInput.addEventListener('blur', validateName);
+
+
 
 //Description validation
 const descriptionInput = document.getElementById('taskdescription');
@@ -88,6 +93,11 @@ const resetTask = () => {
   descriptionInput.value = ''
   taskDate.value = ''
 }
+
+resetButton.onclick = () => {
+  resetTask()
+}
+
 
 const submit = () => {
   let btnClose = document.querySelector('.btn-close')

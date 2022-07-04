@@ -83,7 +83,7 @@
                 <div class="form-group">
                   <button
                     type="button"
-                    id="delete-button"
+                    id="reset-button"
                     class="btn btn-primary"
                   >
                     Reset Task
@@ -167,7 +167,11 @@
         </div>
       </div>
     </section>
-    <select class="form-select" aria-label="Default select example">
+    <select
+      class="form-select"
+      id="filter-status"
+      aria-label="Default select example"
+    >
       <option selected>Select by status</option>
       <option value="Todo">Todo</option>
       <option value="In Progress">In Progress</option>
@@ -175,7 +179,11 @@
       <option value="Done">Done</option>
       <option value="All">All</option>
     </select>
-    <select class="form-select" aria-label="Default select example">
+    <select
+      class="form-select"
+      id="filter-priority"
+      aria-label="Default select example"
+    >
       <option selected>Select by priority</option>
       <option value="Urgent">Urgent</option>
       <option value="High">High</option>
