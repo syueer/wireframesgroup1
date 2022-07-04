@@ -2,7 +2,6 @@
 let newTasks = new TaskManager()
 
 //Selector
-const dateDisplay = document.getElementById('dateDisplay')
 const taskInput = document.getElementById('taskname');
 const taskNameErr = document.getElementById('taskNameErr')
 const descriptionInput = document.getElementById('taskdescription');
@@ -12,11 +11,7 @@ const dataErr = document.getElementById('dateErr')
 const resetButton = document.getElementById('reset-button')
 const filterStatus = document.getElementById('filter-status')
 const filterPriority = document.getElementById('filter-priority')
-const btnClose = document.querySelector('.btn-close')
 const taskSubmit = document.getElementById('task-submit');
-const assigneeInput = document.getElementById('assignee');
-const statusInput = document.getElementById('status');
-const priority = document.getElementById('priority');
 const error = document.getElementById('submitErr');
 
 //display Date function
@@ -26,7 +21,7 @@ const displayDate = () => {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const thisMonth = months[todaysDate.getMonth()];
   const thisYear = todaysDate.getFullYear();
-  dateDisplay.innerText = `Today is ${day}  ${thisMonth}  ${thisYear}.`;
+  document.getElementById('dateDisplay').innerText = `Today is ${day}  ${thisMonth}  ${thisYear}.`;
 }
 displayDate()
 
@@ -99,26 +94,53 @@ const resetTask = () => {
   taskDescriptionErr.style.display = 'none';
   dataErr.style.display = 'none';
   error.style.display = 'none';
-
 }
-resetButton.onclick = () => {
+resetButton.onclick = (e) => {
   resetTask()
 }
 
+let filterCondition = ['All', 'All']
 // filter by task status
 filterStatus.onchange = (e) => {
-  let filterTasks = newTasks.filterByStatus(e.target.value)
-  newTasks.render(filterTasks)
+  filterCondition[0] = e.target.value
+  let filterResult = filterTask(filterCondition)
+  newTasks.render(filterResult)
 }
 
-//filter by task priority
+// filter by task priority
 filterPriority.onchange = (e) => {
-  let filterTasks = newTasks.filterByPriority(e.target.value)
-  newTasks.render(filterTasks)
+  filterCondition[1] = e.target.value
+  let filterResult = filterTask(filterCondition)
+  newTasks.render(filterResult)
+}
+
+const filterTask = (filterCondition) => {
+  let filterResult
+  if (filterCondition[0] === 'All' && filterCondition[1] === 'All') {
+    filterResult = newTasks.tasks
+  } else if (filterCondition[0] === 'All') {
+    filterResult = newTasks.tasks.filter(task => {
+      return task.priority === filterCondition[1]
+    })
+  } else if (filterCondition[1] === 'All') {
+    filterResult = newTasks.tasks.filter(task => {
+      return task.status === filterCondition[0]
+    })
+  } else {
+    filterResult = newTasks.tasks.filter(task => {
+      return task.status === filterCondition[0]
+    }).filter(priorityTask => {
+      return priorityTask.priority === filterCondition[1]
+    })
+  }
+  return filterResult
 }
 
 // Submit button validation
 const submit = () => {
+  const priority = document.getElementById('priority');
+  const statusInput = document.getElementById('status');
+  const assigneeInput = document.getElementById('assignee');
   let isTaskNameValid = validateName()
   let isTaskDescriptionValid = validateDescription()
   let isTaskDateValid = validateDate()
@@ -126,7 +148,7 @@ const submit = () => {
     newTasks.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
     newTasks.render(newTasks.tasks)
     resetTask()
-    btnClose.click()
+    document.querySelector('.btn-close').click()
   } else {
     error.style.display = 'block';
   }

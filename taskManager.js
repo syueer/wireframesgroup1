@@ -44,28 +44,6 @@ class TaskManager {
     this.tasks.push(taskObject)
   }
 
-  filterByStatus(status) {
-    if (status === "All") {
-      return this.tasks
-    } else {
-      let filterResult = this.tasks.filter(task => {
-        return task.status === status
-      })
-      return filterResult
-    }
-  }
-
-  filterByPriority(priority) {
-    if (priority === "All") {
-      return this.tasks
-    } else {
-      let filterResult = newTasks.tasks.filter(task => {
-        return task.priority === priority
-      })
-      return filterResult
-    }
-  }
-
   render(renderTasks) {
     let tasksHtmlList = []
     tasksHtmlList = renderTasks.map(task => {

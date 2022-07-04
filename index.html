@@ -162,28 +162,30 @@
         </div>
       </div>
     </section>
-    <select
-      class="form-select"
-      id="filter-status"
-      aria-label="Default select example"
-    >
-      <option value="All" selected>Select by Status - All</option>
-      <option value="Todo">Todo</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Review">Review</option>
-      <option value="Done">Done</option>
-    </select>
-    <select
-      class="form-select"
-      id="filter-priority"
-      aria-label="Default select example"
-    >
-      <option value="All" selected>Select by Priority - All</option>
-      <option value="Urgent">Urgent</option>
-      <option value="Important">Important</option>
-      <option value="Medium">Medium</option>
-      <option value="Low">Low</option>
-    </select>
+    <div id="selectArea">
+      <select
+        class="form-select"
+        id="filter-status"
+        aria-label="Default select example"
+      >
+        <option value="All" selected>Select by Status - All</option>
+        <option value="Todo">Todo</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Review">Review</option>
+        <option value="Done">Done</option>
+      </select>
+      <select
+        class="form-select"
+        id="filter-priority"
+        aria-label="Default select example"
+      >
+        <option value="All" selected>Select by Priority - All</option>
+        <option value="Urgent">Urgent</option>
+        <option value="Important">Important</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
     <!-- Divs containing task cards-->
     <div class="row" style="padding: 3%; margin: 5%" id="taskList"></div>
     <script
