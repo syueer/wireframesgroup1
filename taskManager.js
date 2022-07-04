@@ -50,7 +50,7 @@ class TaskManager {
     tasksHtmlList = this.tasks.map(task => {
       let date = new Date(task.dueDate)
       let formattedDate = (date.toLocaleDateString())
-      let taskHtml = createTaskHtml(task.name, task.description, task.assignedTo, formattedDate, task.status, tasks.priority)
+      let taskHtml = createTaskHtml(task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
       return taskHtml
     })
     let tasksHtml = tasksHtmlList.join('\n')
