@@ -18,14 +18,9 @@ const createTaskHtml = (id, name, description, assignee, dueDate, status, priori
         <br />
         Priority: ${priority}
       </p>
-      <a
-        href="#"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-        >Edit</a
-      >
-      <button class="btn btn-primary">Delete</button>
+      <button class="btn btn-primary edit-button" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">Edit</button>
+      <button class="btn btn-primary delete-button">Delete</button>
       <button class="btn btn-primary done-button ${status === 'Done' ? 'invisible' : 'visible'}">Mark as done</button>  
     </div>
   </div>
@@ -41,8 +36,8 @@ class TaskManager {
   }
 
   addTask(inputName, inputDescription, inputAssignee, inputDate, inputStatus = 'todo', inputPriority) {
-    let taskObject = {
-      id: this.currentId++,
+    let task = {
+      id: ++this.currentId,
       name: inputName,
       description: inputDescription,
       assignedTo: inputAssignee,
@@ -50,12 +45,16 @@ class TaskManager {
       status: inputStatus,
       priority: inputPriority
     }
-    this.tasks.push(taskObject)
+    this.tasks.push(task)
   }
 
   getTaskById(taskId) {
     let foundTask = this.tasks.filter(task => task.id === taskId)
     return foundTask
+  }
+
+  delete(taskId) {
+    this.tasks = this.tasks.filter(task => task.id !== taskId)
   }
 
   store() {
