@@ -46,7 +46,7 @@ class TaskManager {
 
   store() {
     localStorage.setItem('currentId', JSON.stringify(this.currentId))
-    localStorage.setItem('tasks', JSON.stringify('this.tasks'))
+    localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
 
   load() {
