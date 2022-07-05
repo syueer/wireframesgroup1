@@ -15,6 +15,8 @@ const filterStatus = document.getElementById('filter-status')
 const filterPriority = document.getElementById('filter-priority')
 const taskSubmit = document.getElementById('task-submit');
 const error = document.getElementById('submitErr');
+const taskList = document.getElementById('taskList')
+
 
 //display Date function
 const displayDate = () => {
@@ -101,7 +103,6 @@ resetButton.onclick = (e) => {
   resetTask()
 }
 
-
 // filter function
 const filterTask = (filterCondition) => (
   taskManager.tasks.filter(task =>
@@ -120,6 +121,17 @@ filterPriority.onchange = (e) => {
   filterCondition[1] = e.target.value
   let filterResult = filterTask(filterCondition)
   taskManager.render(filterResult)
+}
+
+
+taskList.onclick = (e) => {
+  if (e.target.classList.contains('done-button')) {
+    let taskId = e.target.parentElement.parentElement.parentElement.id
+    let result = taskManager.getTaskById(Number(taskId))
+    result[0].status = "Done"
+    taskManager.store()
+    taskManager.render(taskManager.tasks)
+  }
 }
 
 // Submit button validation

@@ -1,7 +1,7 @@
 // create Task Card HTML
-const createTaskHtml = (name, description, assignee, dueDate, status, priority) => {
+const createTaskHtml = (id, name, description, assignee, dueDate, status, priority) => {
   const taskHtml = `
-  <div class="col-sm-6">
+  <div class="col-sm-6" id=${id}>
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">Task</h5>
@@ -25,7 +25,8 @@ const createTaskHtml = (name, description, assignee, dueDate, status, priority) 
         data-bs-target="#exampleModal"
         >Edit</a
       >
-      <a href="#" class="btn btn-primary">Delete</a>
+      <button class="btn btn-primary">Delete</button>
+      <button class="btn btn-primary done-button ${status === 'Done' ? 'invisible' : 'visible'}">Mark as done</button>  
     </div>
   </div>
 </div>`
@@ -40,8 +41,21 @@ class TaskManager {
   }
 
   addTask(inputName, inputDescription, inputAssignee, inputDate, inputStatus = 'todo', inputPriority) {
-    let taskObject = { currentId: ++this.currentId, name: inputName, description: inputDescription, assignedTo: inputAssignee, dueDate: inputDate, status: inputStatus, priority: inputPriority }
+    let taskObject = {
+      id: this.currentId++,
+      name: inputName,
+      description: inputDescription,
+      assignedTo: inputAssignee,
+      dueDate: inputDate,
+      status: inputStatus,
+      priority: inputPriority
+    }
     this.tasks.push(taskObject)
+  }
+
+  getTaskById(taskId) {
+    let foundTask = this.tasks.filter(task => task.id === taskId)
+    return foundTask
   }
 
   store() {
@@ -63,7 +77,7 @@ class TaskManager {
     tasksHtmlList = renderTasks.map(task => {
       let date = new Date(task.dueDate)
       let formattedDate = (date.toLocaleDateString())
-      let taskHtml = createTaskHtml(task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
+      let taskHtml = createTaskHtml(task.id, task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
       return taskHtml
     })
     let tasksHtml = tasksHtmlList.join('\n')
