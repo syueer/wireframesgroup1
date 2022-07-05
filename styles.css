@@ -12,9 +12,16 @@ label {
   margin-bottom: 30px;
   margin-top: 30px;
 }
-#delete-button {
+
+#reset-button {
   float: right;
   margin-bottom: 8px;
+}
+
+#form-button {
+  float: right;
+  margin-bottom: 8px;
+  margin-top: 16px;
 }
 
 label {
@@ -36,6 +43,7 @@ form {
 
 #submitErr {
   display: none;
+  float: right;
 }
 
 #submitConfirm {

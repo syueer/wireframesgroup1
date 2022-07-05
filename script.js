@@ -144,7 +144,8 @@ taskList.onclick = (e) => {
 
 
 // Submit button validation
-const submit = () => {
+taskSubmit.onclick = (e) => {
+  e.preventDefault()
   const priority = document.getElementById('priority');
   const statusInput = document.getElementById('status');
   const assigneeInput = document.getElementById('assignee');
@@ -161,114 +162,10 @@ const submit = () => {
     error.style.display = 'block';
   }
 }
-taskSubmit.onclick = () => {
-  submit()
-}
 
-const updateHtml = (id, name, description, assignee, dueDate, status, priority) => {
-  const updateHtml = `
-  <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New Task</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <!--Add form code here-->
-              <form>
-                <div class="form-group">
-                  <button
-                    type="button"
-                    id="reset-button"
-                    class="btn btn-primary"
-                  >
-                    Reset Task
-                  </button>
-                </div>
-                <div class="form-group">
-                  <label for="taskname">Task Name</label>
-                  <input type="text" id="taskname" class="form-control" />
-                  <div id="taskNameErr" class="text-danger">
-                    Task name should be more than 8 characters
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="description">Task Description</label>
-                  <input
-                    type="text"
-                    id="taskdescription"
-                    class="form-control"
-                  />
-                  <div id="taskDescriptionErr" class="text-danger">
-                    Enter Less then 15 chars
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="assignee">Assignee</label>
-                  <select id="assignee" class="form-control">
-                    <option>Elena</option>
-                    <option>Shubha</option>
-                    <option>Kishor</option>
-                    <option>Yue</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="date">Date</label>
-                  <input type="date" class="form-control" id="taskdate" />
-                  <div id="dateErr" class="text-danger">
-                    Please select valid due date
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="status">Status</label>
-                  <select id="status" class="form-control">
-                    <option value="Todo">Todo</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Review">Review</option>
-                    <option value="Done">Done</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="priority">Priority</label>
-                  <select id="priority" class="form-control">
-                    <option value="Urgent">Urgent</option>
-                    <option value="Important">Important</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                  </select>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
-              <button type="button" id="task-submit" class="btn btn-primary">
-                Submit
-              </button>
-              <div id="submitErr" class="submit-danger">
-                Please, make sure all the fields are completed!
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  `
-  return updateHtml
-}
+// const updateHtml = (id, name, description, assignee, dueDate, status, priority) => {
+//   const updateHtml = `
+    
+//   `
+//   return updateHtml
+// }
