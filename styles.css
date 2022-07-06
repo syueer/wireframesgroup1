@@ -1,53 +1,80 @@
+form {
+  width: 50%;
+  border: solid;
+  border-color: grey;
+}
+
+label {
+  color: rgb(25, 13, 152);
+}
+
+#add-button {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+#reset-button {
+  float: right;
+  margin-bottom: 8px;
+}
+
+#form-button {
+  float: right;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+label {
+  height: 20px;
+}
+
+.navbar-brand {
+  margin-right: 15rem;
+}
 
 form {
-    width: 50%;
-    border: solid;
-    border-color: grey;
+  width: 100%;
+  height: auto;
 }
-label {
-    color:rgb(25, 13, 152);
+
+.form-group {
+  margin: 1rem;
 }
-#add-button {
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
-#delete-button {
-    float: right;
-    margin-bottom: 8px;
-}
-label {
-    height: 20px;
-}
-.navbar-brand {
-    margin-right: 15rem;
-}
-form {
-    width: 100%;
-    height: auto;
-}
+
 #submitErr {
-    display: none;
+  display: none;
+  float: right;
 }
+
 #submitConfirm {
-    display: none;
+  display: none;
 }
+
 #taskNameErr {
-    display: none;
+  display: none;
 }
+
 #dateErr {
-    display: none;
-  }
-  #taskDescriptionErr {
-    display: none;
-  }
-  #dateDisplay {
-    display: grid;
-    text-align: center;
-    margin: 5% auto;
+  display: none;
 }
+
+#taskDescriptionErr {
+  display: none;
+}
+
+#submitErr {
+  display: none;
+}
+
+#dateDisplay {
+  display: grid;
+  text-align: center;
+  margin: 5% auto;
+}
+
 #add-button {
-    display: grid;
-    width: 30%;
-    margin: 2rem auto;
-    padding: 1rem;
+  display: grid;
+  width: 30%;
+  margin: 2rem auto;
+  padding: 1rem;
 }
