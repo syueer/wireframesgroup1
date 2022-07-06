@@ -16,8 +16,6 @@ const createTaskHtml = (id, name, description, assignee, dueDate, status, priori
         <br />
         Priority: ${priority}
       </p>
-      <button class="btn btn-primary edit-button" data-bs-toggle="modal"
-      data-bs-target="#exampleModal">Edit</button>
       <button class="btn btn-primary delete-button">Delete</button>
       <button class="btn btn-primary done-button ${status === 'Done' ? 'invisible' : 'visible'}">Mark as done</button>  
     </div>
