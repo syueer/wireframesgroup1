@@ -102,6 +102,11 @@ resetButton.onclick = (e) => {
   resetTask()
 }
 
+const cancelBtn = document.getElementById('cancel-button')
+cancelBtn.onclick = () => {
+  resetTask()
+}
+
 // filter function
 const filterTask = (filterCondition) => (
   taskManager.tasks.filter(task =>
@@ -122,6 +127,7 @@ filterPriority.onchange = (e) => {
   taskManager.render(filterResult)
 }
 
+//Mark as done and delete
 const taskList = document.getElementById('taskList')
 taskList.onclick = (e) => {
   if (e.target.classList.contains('done-button')) {
@@ -132,13 +138,12 @@ taskList.onclick = (e) => {
     taskManager.render(taskManager.tasks)
   }
   if (e.target.classList.contains('delete-button')) {
-    let taskId = e.target.parentElement.parentElement.parentElement.id
-    taskManager.delete(Number(taskId))
-    taskManager.store()
-    taskManager.render(taskManager.tasks)
-  }
-  if (e.target.classList.contains('edit-button')) {
-
+    if (confirm("Delete the task, Are you sure?")) {
+      let taskId = e.target.parentElement.parentElement.parentElement.id
+      taskManager.delete(Number(taskId))
+      taskManager.store()
+      taskManager.render(taskManager.tasks)
+    }
   }
 }
 
@@ -163,9 +168,3 @@ taskSubmit.onclick = (e) => {
   }
 }
 
-// const updateHtml = (id, name, description, assignee, dueDate, status, priority) => {
-//   const updateHtml = `
-    
-//   `
-//   return updateHtml
-// }

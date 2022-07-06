@@ -4,10 +4,8 @@ const createTaskHtml = (id, name, description, assignee, dueDate, status, priori
   <div class="col-sm-6" id=${id}>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Task</h5>
+      <h5 class="card-title"> ${name}</h5>
       <p class="card-text">
-        Task Name: ${name}
-        <br />
         Description: ${description}
         <br />
         Assignee: ${assignee}
