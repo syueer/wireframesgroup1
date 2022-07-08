@@ -15,7 +15,10 @@ const filterStatus = document.getElementById('filter-status')
 const filterPriority = document.getElementById('filter-priority')
 const taskSubmit = document.getElementById('task-submit');
 const error = document.getElementById('submitErr');
-// const taskList = document.getElementById('taskList')
+const assigneeSelect = document.getElementById('assignee')
+const statusSelect = document.getElementById('status')
+const prioritySelect = document.getElementById('priority')
+
 
 //display Date function
 const displayDate = () => {
@@ -43,7 +46,9 @@ const validateName = () => {
     return true
   }
 }
-taskInput.addEventListener('blur', validateName);
+taskInput.onclick = () => {
+  validateName()
+}
 
 //Description validation
 const validateDescription = () => {
@@ -60,7 +65,9 @@ const validateDescription = () => {
     return true
   }
 }
-descriptionInput.addEventListener('blur', validateDescription);
+descriptionInput.onclick = () => {
+  validateDescription()
+}
 
 //Date validation
 const validateDate = () => {
@@ -145,8 +152,25 @@ taskList.onclick = (e) => {
       taskManager.render(taskManager.tasks)
     }
   }
-}
+  if (e.target.classList.contains('edit-button')) {
+    let taskId = e.target.parentElement.parentElement.parentElement.id
+    console.log(taskId)
+    document.getElementById('insertModalLabel').innerHTML = `Edit task ${taskId}`
+    // document.getElementById('insertModalLabel').innerHTML = "Edit task"
+    console.log(1111)
 
+    let result = taskManager.getTaskById(Number(taskId))
+    console.log(result)
+    const { id, name, description, assignee, dueDate, status, priority } = result[0]
+    taskInput.value = name
+    descriptionInput.value = description
+    taskDate.value = dueDate
+    assigneeSelect.value = assignee
+    statusSelect.value = status
+    prioritySelect.value = priority
+
+  }
+}
 
 // Submit button validation
 taskSubmit.onclick = (e) => {
@@ -166,5 +190,16 @@ taskSubmit.onclick = (e) => {
   } else {
     error.style.display = 'block';
   }
+}
+
+const addNewTask = document.getElementById('add-button')
+addNewTask.onclick = () => {
+  document.getElementById('insertModalLabel').innerHTML = "Add new task"
+  taskInput.value = ""
+  descriptionInput.value = ""
+  taskDate.value = ""
+  assigneeSelect.value = "Elena"
+  statusSelect.value = "Todo"
+  prioritySelect.value = "Urgent"
 }
 

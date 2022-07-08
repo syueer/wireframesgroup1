@@ -1,3 +1,4 @@
+
 // create Task Card HTML
 const createTaskHtml = (id, name, description, assignee, dueDate, status, priority) => {
   const taskHtml = `
@@ -17,7 +18,7 @@ const createTaskHtml = (id, name, description, assignee, dueDate, status, priori
         Priority: ${priority}
       </p>
       <button class="btn btn-primary edit-button" data-bs-toggle="modal"
-      data-bs-target="#exampleModal">Edit</button>
+      data-bs-target="#insertTask">Edit</button>
       <button class="btn btn-primary delete-button">Delete</button>
       <button class="btn btn-primary done-button ${status === 'Done' ? 'invisible' : 'visible'}">Mark as done</button>  
     </div>
@@ -35,15 +36,33 @@ class TaskManager {
 
   addTask(inputName, inputDescription, inputAssignee, inputDate, inputStatus = 'todo', inputPriority) {
     let task = {
-      id: ++this.currentId,
+      id: this.currentId++,
       name: inputName,
       description: inputDescription,
-      assignedTo: inputAssignee,
+      assignee: inputAssignee,
       dueDate: inputDate,
       status: inputStatus,
       priority: inputPriority
     }
     this.tasks.push(task)
+  }
+
+  updateTask(id, inputName, inputDescription, inputAssignee, inputDate, inputStatus, inputPriority) {
+    this.tasks.map((task, index) => {
+      if (task.id === id) {
+        task = {
+          name: inputName,
+          description: inputDescription,
+          assignedTo: inputAssignee,
+          dueDate: inputDate,
+          status: inputStatus,
+          priority: inputPriority
+        }
+      }
+    })
+
+
+
   }
 
   getTaskById(taskId) {
@@ -70,11 +89,12 @@ class TaskManager {
   }
 
   render(renderTasks) {
+    console.log(renderTasks)
     let tasksHtmlList = []
     tasksHtmlList = renderTasks.map(task => {
       let date = new Date(task.dueDate)
       let formattedDate = (date.toLocaleDateString())
-      let taskHtml = createTaskHtml(task.id, task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
+      let taskHtml = createTaskHtml(task.id, task.name, task.description, task.assignee, formattedDate, task.status, task.priority)
       return taskHtml
     })
     let tasksHtml = tasksHtmlList.join('\n')
