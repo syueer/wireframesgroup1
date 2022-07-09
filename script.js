@@ -10,7 +10,6 @@ const descriptionInput = document.getElementById('taskdescription');
 const taskDescriptionErr = document.getElementById('taskDescriptionErr')
 const taskDate = document.querySelector('#taskdate');
 const dataErr = document.getElementById('dateErr')
-const resetButton = document.getElementById('reset-button')
 const filterStatus = document.getElementById('filter-status')
 const filterPriority = document.getElementById('filter-priority')
 const taskSubmit = document.getElementById('task-submit');
@@ -55,7 +54,7 @@ const validateDescription = () => {
   if (descriptionInput.value.length === 0) {
     descriptionInput.style.border = '1px solid red';
     return false
-  } else if (descriptionInput.value.length > 15) {
+  } else if (descriptionInput.value.length < 15) {
     taskDescriptionErr.style.display = 'block';
     descriptionInput.style.border = '1px solid red';
     return false
@@ -104,13 +103,16 @@ const resetTask = () => {
   taskDescriptionErr.style.display = 'none';
   dataErr.style.display = 'none';
   error.style.display = 'none';
+  assigneeSelect.value = "Elena"
+  statusSelect.value = "Todo"
+  prioritySelect.value = "Urgent"
 }
-resetButton.onclick = (e) => {
+
+document.getElementById('reset-button').onclick = (e) => {
   resetTask()
 }
 
-const cancelBtn = document.getElementById('cancel-button')
-cancelBtn.onclick = () => {
+document.getElementById('cancel-button').onclick = () => {
   resetTask()
 }
 
@@ -142,7 +144,7 @@ taskList.onclick = (e) => {
     let result = taskManager.getTaskById(Number(taskId))
     result[0].status = "Done"
     taskManager.store()
-    taskManager.render(taskManager.tasks)
+    taskManager.render(filterTask(filterCondition))
   }
   if (e.target.classList.contains('delete-button')) {
     if (confirm("Delete the task, Are you sure?")) {
@@ -164,7 +166,6 @@ taskList.onclick = (e) => {
     assigneeSelect.value = assignee
     statusSelect.value = status
     prioritySelect.value = priority
-
   }
 }
 
@@ -193,15 +194,9 @@ taskSubmit.onclick = (e) => {
   }
 }
 
-const addNewTask = document.getElementById('add-button')
-addNewTask.onclick = () => {
+document.getElementById('add-button').onclick = () => {
   taskInput.parentElement.parentElement.id = ""
   document.getElementById('insertModalLabel').innerHTML = "Add new task"
-  taskInput.value = ""
-  descriptionInput.value = ""
-  taskDate.value = ""
-  assigneeSelect.value = "Elena"
-  statusSelect.value = "Todo"
-  prioritySelect.value = "Urgent"
+  resetTask()
 }
 
