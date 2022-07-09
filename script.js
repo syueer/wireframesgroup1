@@ -154,13 +154,9 @@ taskList.onclick = (e) => {
   }
   if (e.target.classList.contains('edit-button')) {
     let taskId = e.target.parentElement.parentElement.parentElement.id
-    console.log(taskId)
-    document.getElementById('insertModalLabel').innerHTML = `Edit task ${taskId}`
-    // document.getElementById('insertModalLabel').innerHTML = "Edit task"
-    console.log(1111)
-
+    document.getElementById('insertModalLabel').innerHTML = "Edit task"
+    taskInput.parentElement.parentElement.id = taskId
     let result = taskManager.getTaskById(Number(taskId))
-    console.log(result)
     const { id, name, description, assignee, dueDate, status, priority } = result[0]
     taskInput.value = name
     descriptionInput.value = description
@@ -182,9 +178,14 @@ taskSubmit.onclick = (e) => {
   let isTaskDescriptionValid = validateDescription()
   let isTaskDateValid = validateDate()
   if (isTaskNameValid && isTaskDescriptionValid && isTaskDateValid) {
-    taskManager.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
+    let taskId = taskInput.parentElement.parentElement.id
+    if (taskId) {
+      taskManager.updateTask(Number(taskId), taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
+    } else {
+      taskManager.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
+    }
     taskManager.store()
-    taskManager.render(taskManager.tasks)
+    taskManager.render(filterTask(filterCondition))
     resetTask()
     document.querySelector('.btn-close').click()
   } else {
@@ -194,6 +195,7 @@ taskSubmit.onclick = (e) => {
 
 const addNewTask = document.getElementById('add-button')
 addNewTask.onclick = () => {
+  taskInput.parentElement.parentElement.id = ""
   document.getElementById('insertModalLabel').innerHTML = "Add new task"
   taskInput.value = ""
   descriptionInput.value = ""

@@ -47,22 +47,21 @@ class TaskManager {
     this.tasks.push(task)
   }
 
-  updateTask(id, inputName, inputDescription, inputAssignee, inputDate, inputStatus, inputPriority) {
-    this.tasks.map((task, index) => {
-      if (task.id === id) {
+  updateTask(taskId, inputName, inputDescription, inputAssignee, inputDate, inputStatus, inputPriority) {
+    this.tasks = this.tasks.map(task => {
+      if (task.id === taskId) {
         task = {
+          id: taskId,
           name: inputName,
           description: inputDescription,
-          assignedTo: inputAssignee,
+          assignee: inputAssignee,
           dueDate: inputDate,
           status: inputStatus,
           priority: inputPriority
         }
       }
+      return task
     })
-
-
-
   }
 
   getTaskById(taskId) {
@@ -89,7 +88,6 @@ class TaskManager {
   }
 
   render(renderTasks) {
-    console.log(renderTasks)
     let tasksHtmlList = []
     tasksHtmlList = renderTasks.map(task => {
       let date = new Date(task.dueDate)
