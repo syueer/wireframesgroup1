@@ -10,12 +10,14 @@ const descriptionInput = document.getElementById('taskdescription');
 const taskDescriptionErr = document.getElementById('taskDescriptionErr')
 const taskDate = document.querySelector('#taskdate');
 const dataErr = document.getElementById('dateErr')
-const resetButton = document.getElementById('reset-button')
 const filterStatus = document.getElementById('filter-status')
 const filterPriority = document.getElementById('filter-priority')
 const taskSubmit = document.getElementById('task-submit');
 const error = document.getElementById('submitErr');
-// const taskList = document.getElementById('taskList')
+const assigneeSelect = document.getElementById('assignee')
+const statusSelect = document.getElementById('status')
+const prioritySelect = document.getElementById('priority')
+
 
 //display Date function
 const displayDate = () => {
@@ -43,14 +45,16 @@ const validateName = () => {
     return true
   }
 }
-taskInput.addEventListener('blur', validateName);
+taskInput.onclick = () => {
+  validateName()
+}
 
 //Description validation
 const validateDescription = () => {
   if (descriptionInput.value.length === 0) {
     descriptionInput.style.border = '1px solid red';
     return false
-  } else if (descriptionInput.value.length > 15) {
+  } else if (descriptionInput.value.length < 15) {
     taskDescriptionErr.style.display = 'block';
     descriptionInput.style.border = '1px solid red';
     return false
@@ -60,7 +64,9 @@ const validateDescription = () => {
     return true
   }
 }
-descriptionInput.addEventListener('blur', validateDescription);
+descriptionInput.onclick = () => {
+  validateDescription()
+}
 
 //Date validation
 const validateDate = () => {
@@ -97,13 +103,16 @@ const resetTask = () => {
   taskDescriptionErr.style.display = 'none';
   dataErr.style.display = 'none';
   error.style.display = 'none';
+  assigneeSelect.value = "Elena"
+  statusSelect.value = "Todo"
+  prioritySelect.value = "Urgent"
 }
-resetButton.onclick = (e) => {
+
+document.getElementById('reset-button').onclick = (e) => {
   resetTask()
 }
 
-const cancelBtn = document.getElementById('cancel-button')
-cancelBtn.onclick = () => {
+document.getElementById('cancel-button').onclick = () => {
   resetTask()
 }
 
@@ -135,7 +144,7 @@ taskList.onclick = (e) => {
     let result = taskManager.getTaskById(Number(taskId))
     result[0].status = "Done"
     taskManager.store()
-    taskManager.render(taskManager.tasks)
+    taskManager.render(filterTask(filterCondition))
   }
   if (e.target.classList.contains('delete-button')) {
     if (confirm("Delete the task, Are you sure?")) {
@@ -145,8 +154,20 @@ taskList.onclick = (e) => {
       taskManager.render(taskManager.tasks)
     }
   }
+  if (e.target.classList.contains('edit-button')) {
+    let taskId = e.target.parentElement.parentElement.parentElement.id
+    document.getElementById('insertModalLabel').innerHTML = "Edit task"
+    taskInput.parentElement.parentElement.id = taskId
+    let result = taskManager.getTaskById(Number(taskId))
+    const { id, name, description, assignee, dueDate, status, priority } = result[0]
+    taskInput.value = name
+    descriptionInput.value = description
+    taskDate.value = dueDate
+    assigneeSelect.value = assignee
+    statusSelect.value = status
+    prioritySelect.value = priority
+  }
 }
-
 
 // Submit button validation
 taskSubmit.onclick = (e) => {
@@ -158,13 +179,24 @@ taskSubmit.onclick = (e) => {
   let isTaskDescriptionValid = validateDescription()
   let isTaskDateValid = validateDate()
   if (isTaskNameValid && isTaskDescriptionValid && isTaskDateValid) {
-    taskManager.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
+    let taskId = taskInput.parentElement.parentElement.id
+    if (taskId) {
+      taskManager.updateTask(Number(taskId), taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
+    } else {
+      taskManager.addTask(taskInput.value, descriptionInput.value, assigneeInput.value, taskDate.value, statusInput.value, priority.value)
+    }
     taskManager.store()
-    taskManager.render(taskManager.tasks)
+    taskManager.render(filterTask(filterCondition))
     resetTask()
     document.querySelector('.btn-close').click()
   } else {
     error.style.display = 'block';
   }
+}
+
+document.getElementById('add-button').onclick = () => {
+  taskInput.parentElement.parentElement.id = ""
+  document.getElementById('insertModalLabel').innerHTML = "Add new task"
+  resetTask()
 }
 

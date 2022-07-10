@@ -1,3 +1,4 @@
+
 // create Task Card HTML
 const createTaskHtml = (id, name, description, assignee, dueDate, status, priority) => {
   const taskHtml = `
@@ -16,6 +17,8 @@ const createTaskHtml = (id, name, description, assignee, dueDate, status, priori
         <br />
         Priority: ${priority}
       </p>
+      <button class="btn btn-primary edit-button" data-bs-toggle="modal"
+      data-bs-target="#insertTask">Edit</button>
       <button class="btn btn-primary delete-button">Delete</button>
       <button class="btn btn-primary done-button ${status === 'Done' ? 'invisible' : 'visible'}">Mark as done</button>  
     </div>
@@ -33,15 +36,32 @@ class TaskManager {
 
   addTask(inputName, inputDescription, inputAssignee, inputDate, inputStatus = 'todo', inputPriority) {
     let task = {
-      id: ++this.currentId,
+      id: this.currentId++,
       name: inputName,
       description: inputDescription,
-      assignedTo: inputAssignee,
+      assignee: inputAssignee,
       dueDate: inputDate,
       status: inputStatus,
       priority: inputPriority
     }
     this.tasks.push(task)
+  }
+
+  updateTask(taskId, inputName, inputDescription, inputAssignee, inputDate, inputStatus, inputPriority) {
+    this.tasks = this.tasks.map(task => {
+      if (task.id === taskId) {
+        task = {
+          id: taskId,
+          name: inputName,
+          description: inputDescription,
+          assignee: inputAssignee,
+          dueDate: inputDate,
+          status: inputStatus,
+          priority: inputPriority
+        }
+      }
+      return task
+    })
   }
 
   getTaskById(taskId) {
@@ -72,7 +92,7 @@ class TaskManager {
     tasksHtmlList = renderTasks.map(task => {
       let date = new Date(task.dueDate)
       let formattedDate = (date.toLocaleDateString())
-      let taskHtml = createTaskHtml(task.id, task.name, task.description, task.assignedTo, formattedDate, task.status, task.priority)
+      let taskHtml = createTaskHtml(task.id, task.name, task.description, task.assignee, formattedDate, task.status, task.priority)
       return taskHtml
     })
     let tasksHtml = tasksHtmlList.join('\n')
