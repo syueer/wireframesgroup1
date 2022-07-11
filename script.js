@@ -19,6 +19,7 @@ const statusSelect = document.getElementById('status')
 const prioritySelect = document.getElementById('priority')
 
 
+
 //display Date function
 const displayDate = () => {
   const todaysDate = new Date();
@@ -45,9 +46,10 @@ const validateName = () => {
     return true
   }
 }
-taskInput.onclick = () => {
+taskInput.addEventListener('click', () => {
   validateName()
-}
+})
+
 
 //Description validation
 const validateDescription = () => {
@@ -64,9 +66,9 @@ const validateDescription = () => {
     return true
   }
 }
-descriptionInput.onclick = () => {
+descriptionInput.addEventListener('click', () => {
   validateDescription()
-}
+})
 
 //Date validation
 const validateDate = () => {
@@ -87,9 +89,9 @@ const validateDate = () => {
     return true
   }
 }
-taskDate.onblur = () => {
+taskDate.addEventListener('blur', () => {
   validateDate()
-}
+})
 
 // reset Task form
 const resetTask = () => {
@@ -108,13 +110,12 @@ const resetTask = () => {
   prioritySelect.value = "Urgent"
 }
 
-document.getElementById('reset-button').onclick = (e) => {
+document.getElementById('reset-button').addEventListener('click', () => {
   resetTask()
-}
-
-document.getElementById('cancel-button').onclick = () => {
+})
+document.getElementById('cancel-button').addEventListener('click', () => {
   resetTask()
-}
+})
 
 // filter function
 const filterTask = (filterCondition) => (
@@ -124,21 +125,19 @@ const filterTask = (filterCondition) => (
   ))
 
 let filterCondition = ['All', 'All']
-filterStatus.onchange = (e) => {
+filterStatus.addEventListener('change', (e) => {
   filterCondition[0] = e.target.value
   let filterResult = filterTask(filterCondition)
   taskManager.render(filterResult)
-}
-
-filterPriority.onchange = (e) => {
+})
+filterPriority.addEventListener('change', (e) => {
   filterCondition[1] = e.target.value
   let filterResult = filterTask(filterCondition)
   taskManager.render(filterResult)
-}
+})
 
 //Mark as done and delete
-const taskList = document.getElementById('taskList')
-taskList.onclick = (e) => {
+document.getElementById('taskList').addEventListener('click', (e) => {
   if (e.target.classList.contains('done-button')) {
     let taskId = e.target.parentElement.parentElement.parentElement.id
     let result = taskManager.getTaskById(Number(taskId))
@@ -167,10 +166,10 @@ taskList.onclick = (e) => {
     statusSelect.value = status
     prioritySelect.value = priority
   }
-}
+})
 
 // Submit button validation
-taskSubmit.onclick = (e) => {
+document.getElementById('task-submit').addEventListener('click', (e) => {
   e.preventDefault()
   const priority = document.getElementById('priority');
   const statusInput = document.getElementById('status');
@@ -192,11 +191,10 @@ taskSubmit.onclick = (e) => {
   } else {
     error.style.display = 'block';
   }
-}
+})
 
-document.getElementById('add-button').onclick = () => {
+document.getElementById('add-button').addEventListener('click', () => {
   taskInput.parentElement.parentElement.id = ""
   document.getElementById('insertModalLabel').innerHTML = "Add new task"
   resetTask()
-}
-
+})
